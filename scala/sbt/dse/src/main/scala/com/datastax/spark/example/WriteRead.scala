@@ -25,7 +25,7 @@ object WriteRead extends App {
   }
 
   // Write some data
-  spark.range(1, 10)
+  spark.range(1, 500)
     .map(x => (x, x))
     .rdd
     .saveToCassandra("ks", "kv")
