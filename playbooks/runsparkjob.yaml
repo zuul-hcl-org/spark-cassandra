@@ -38,7 +38,7 @@
         method: PUT
         headers:
           X-JFrog-Art-Api: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
-        src: ~/SparkBuildExamples/java/sbt/oss/writeRead-assembly-0.1.jar
+        src: ~/work/java/sbt/oss/target/writeRead-assembly-0.1.jar
         status_code: 201
         remote_src: yes
       when: build_status is succeeded
