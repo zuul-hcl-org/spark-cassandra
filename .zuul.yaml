@@ -1,0 +1,29 @@
+- nodeset:
+    name: emea-node
+    nodes:
+      - name: node1
+        label: ubuntu-bionic
+        
+- nodeset:
+    name: nafta-node
+    nodes:
+      - name: node2
+        label: centos76
+
+- job:
+    name: runsparkjob
+    run: playbooks/runsparkjob.yaml
+    parent: base
+    irrelevant-files:
+      - ^playbooks/.*$
+      - ^.zuul.yaml$
+      
+- project:
+    sparkbuildjob_shared:
+      jobs:
+        - runsparkjob:
+            host-vars:
+              node1:
+                jfrog: "http://172.31.27.120:9083"
+                jfrog_api_token: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
+            nodeset: emea-node
