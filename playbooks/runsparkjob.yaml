@@ -1,0 +1,49 @@
+- hosts: all
+  tasks:
+    - shell: |
+            echo {{ zuul.change_url }} | cut -d '/' -f 7
+      register: pullid
+	  
+    - debug:
+        msg: "running spark cassandra demo"
+    
+    - name: "Deleted the workspace dir before build"
+      shell: |
+            rm -rf ~/work
+      register: clean_output
+      
+    - name: "Deleted the workspace dir before build"
+      shell: |
+            rm -rf ~/work
+      register: spark_output
+      
+    - name: Clone git repo
+      git:
+        repo: https://github.com/datastax/SparkBuildExamples 
+        dest: ~/work/
+      when: spark_output is succeeded
+      
+    - name: Build sample project and junit reports 
+      shell: |
+	        cd ~/work/java/sbt/oss
+            sbt clean assembly
+            
+      register: build_status
+      
+    - name: Push artifacts to jfrog repository
+      uri:
+        url: "http://ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083/artifactory/sbt-local/writeRead-assembly-{{ pullid.stdout }} .jar"
+        #when: zuul_location in emea
+        validate_certs: no
+        method: PUT
+        headers:
+          X-JFrog-Art-Api: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
+        src: ~/SparkBuildExamples/java/sbt/oss/writeRead-assembly-0.1.jar
+        status_code: 201
+        remote_src: yes
+      when: build_status is succeeded
+	
+    - name: " run the spark submit" 
+	  shell: |
+	        ./spark.sh
+	  register: spark_submit_output
