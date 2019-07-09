@@ -43,7 +43,7 @@ public class WriteRead {
       });
 
     JavaRDD<Tuple2<Integer, Integer>> data = spark
-      .range(1, 10)
+      .range(1, 100)
       .javaRDD()
       .map(x -> new Tuple2<>(x.intValue(), x.intValue()));
 
