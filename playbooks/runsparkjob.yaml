@@ -19,7 +19,7 @@
       
     - name: Clone git repo
       git:
-        repo: https://github.com/datastax/SparkBuildExamples 
+        repo: https://github.com/zuul-hcl-org/spark-cassandra.git 
         dest: ~/work/
       when: spark_output is succeeded
       
