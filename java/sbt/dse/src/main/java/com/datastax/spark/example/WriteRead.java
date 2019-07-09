@@ -65,6 +65,12 @@ public class WriteRead {
     System.out.println("Data read as RDD");
     scReadData.collect()
       .forEach(System.out::println);
+    
+      try {
+    Thread.sleep(200000);                 //1000 milliseconds is one second.
+        } catch(InterruptedException ex) {
+    Thread.currentThread().interrupt();
+}
 
     System.out.println("Data read as DataSet (DataFrame)");
     dataset
