@@ -3,7 +3,7 @@
     - shell: |
             echo {{ zuul.change_url }} | cut -d '/' -f 7
       register: pullid
-	  
+
     - debug:
         msg: "running spark cassandra demo"
     
