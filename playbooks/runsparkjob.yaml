@@ -25,7 +25,7 @@
       
     - name: Build sample project and junit reports 
       shell: |
-	        cd ~/work/java/sbt/oss
+            cd ~/work/java/sbt/oss
             sbt clean assembly
             
       register: build_status
@@ -42,8 +42,8 @@
         status_code: 201
         remote_src: yes
       when: build_status is succeeded
-	
+
     - name: " run the spark submit" 
-	  shell: |
-	        ./spark.sh
-	  register: spark_submit_output
+      shell: |
+           ./spark.sh
+      register: spark_submit_output
