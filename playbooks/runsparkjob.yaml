@@ -32,7 +32,7 @@
       
     - name: Push artifacts to jfrog repository
       uri:
-        url: "http://ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083/artifactory/sbt-local/writeRead-assembly-{{ pullid.stdout }} .jar"
+        url: "http://ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083/artifactory/sbt-local/spark/writeRead-assembly-{{ pullid.stdout }}.jar"
         #when: zuul_location in emea
         validate_certs: no
         method: PUT
