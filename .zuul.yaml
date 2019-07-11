@@ -1,4 +1,12 @@
 - nodeset:
+    name: emea_nafta_node
+    nodes:
+      - name: node1
+        label: ubuntu-bionic
+      - name: node2
+        label: centos76
+        
+- nodeset:
     name: emea
     nodes:
       - name: node1
