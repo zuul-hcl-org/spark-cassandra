@@ -52,5 +52,5 @@
     - name: build the docker file
       shell: |
             echo "FROM {{ jfrog }}/docker-local/spark:v2.4.3" > /home/ec2-user/work/Dockerfile
-            echo "COPY writeRead-assembly-0.1.jar       //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/work/Dockerfile
+            echo "COPY writeRead-assembly-0.1.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/work/Dockerfile
       when: build_status is succeeded
