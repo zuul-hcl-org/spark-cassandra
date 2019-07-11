@@ -2,9 +2,17 @@ Appname=“gameoflife”
 Appbinary=“gameoflife.war”
 sharedArtifactorylocation=“nafta/artifactory”
 ROSbagDatalocation=“both”
+BuildRegion="shared" ## shared build node is nafta 
 ROSBagstoragepath = “/var/data/rosbag.tar”
 InputScenario1Data =“/var/data/emea/input/*.jcsen”
 InputScenario2Data =“/var/data/nafta/input/*.jcsen”
 Emea_artifactlocation =“http://172.31.27.120:9083”
 Nafta_artifactlocation=“http://172.31.20.175:9083”
 shared_artifactlocation=“http://172.31.20.175:9083”
+## case 1: shared datalocation in emea 
+## case 2: shared datalocation in nafta
+## case 3: shared datalocation in both
+## case 4: both datalocation in emea
+## case 5: nafta datalocation in nafta
+## case 6: emea datalocation in emea 
+
