@@ -45,7 +45,7 @@
 
     - name: Pull the jar file
       get_url:
-        url: {{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pull_id.stdout }}.jar
+        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pull_id.stdout }}.jar"
         dest: /home/ec2-user/work/
       when: build_status is succeeded
 
