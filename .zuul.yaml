@@ -20,7 +20,7 @@
       
 - job:
     name: buildlocation
-    run: playbooks/buildlocation.yaml
+    run: playbooks/build_location.yaml
     parent: base 
     
       
