@@ -1,5 +1,5 @@
 - nodeset:
-    name: node1_node2
+    name: both_region
     nodes:
       - name: node1
         label: ubuntu-bionic
