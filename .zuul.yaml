@@ -1,4 +1,3 @@
-
 - nodeset:
     name: emea
     nodes:
@@ -35,6 +34,6 @@
         - runsparkjob:
             host-vars:
              node1:
-               jfrog: "http://172.31.27.120:9083"
+                jfrog: "http://172.31.27.120:9083"
                 jfrog_api_token: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
             nodeset: emea
