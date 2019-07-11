@@ -33,7 +33,7 @@
 
 - job:
     name: checkdatalocation_emea
-    run: playbooks/checkbuildlocation_emea.yaml
+    run: playbooks/checkdatalocation_emea.yaml
     parent: base 
  
 - job:
