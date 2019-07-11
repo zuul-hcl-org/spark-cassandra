@@ -37,7 +37,7 @@
       jobs:
         - buildlocation:
             nodeset: emea-node
-      checklabel_emea:
+    checklabel_emea:
       jobs:
        - checklabel_emea:
            nodeset: emea-node
