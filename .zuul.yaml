@@ -17,8 +17,24 @@
         label: centos76
 
 - job:
-    name: runsparkjob
-    run: playbooks/runsparkjob.yaml
+    name: sparkbuild
+    run: playbooks/sparkbuild.yaml
+    parent: base
+    irrelevant-files:
+      - ^playbooks/.*$
+      - ^.zuul.yaml$
+      
+- job:
+    name: builddsparkdocker
+    run: playbooks/builddsparkdocker.yaml
+    parent: base
+    irrelevant-files:
+      - ^playbooks/.*$
+      - ^.zuul.yaml$
+ 
+- job:
+    name: sparksubmit
+    run: playbooks/sparksubmit.yaml
     parent: base
     irrelevant-files:
       - ^playbooks/.*$
@@ -56,7 +72,7 @@
            
     sparkbuildjob_shared:
       jobs: 
-        - buildsparkjob:
+        - sparkbuild:
             host-vars:
               shared:
                 jfrog: "http://172.31.20.175:9083"
