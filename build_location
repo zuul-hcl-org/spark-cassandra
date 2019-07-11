@@ -7,3 +7,4 @@ InputScenario1Data =“/var/data/emea/input/*.jcsen”
 InputScenario2Data =“/var/data/nafta/input/*.jcsen”
 Emea_artifactlocation =“http://172.31.27.120:9083”
 Nafta_artifactlocation=“http://172.31.20.175:9083”
+shared_artifactlocation=“http://172.31.20.175:9083”
