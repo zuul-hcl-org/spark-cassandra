@@ -53,8 +53,7 @@
 - job:
     name: checkbuildlocation_nafta
     run: playbooks/checkdatalocation_nafta.yaml
-    parent: base  
-    
+    parent: base    
       
 - project:
     checklabel_both:
@@ -68,8 +67,7 @@
     checklabel_nafta:
       jobs:
        - checkdatalocation_nafta:
-           nodeset: nafta
-           
+           nodeset: nafta        
     sparkbuildjob_shared:
       jobs: 
         - sparkbuild:
