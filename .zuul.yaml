@@ -76,16 +76,7 @@
                 jfrog: "http://172.31.20.175:9083"
                 jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
             nodeset: shared
-        - builddsparkdocker:
-            host-vars:
-              emea:
-                jfrog: "http://172.31.27.120:9083"
-            nodeset: emea
-        - sparksubmit
-            host-vars:
-              emea:
-                jfrog: "http://172.31.27.120:9083"
-            nodeset: emea          
+     
     check_emea:
       jobs:
         - runsparkjob:
