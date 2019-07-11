@@ -9,13 +9,13 @@
 - nodeset:
     name: emea
     nodes:
-      - name: node1
+      - name: emea
         label: ubuntu-bionic
         
 - nodeset:
     name: nafta
     nodes:
-      - name: node2
+      - name: nafta
         label: centos76
 
 - job:
@@ -50,7 +50,7 @@
       jobs:
         - runsparkjob:
             host-vars:
-              node1:
+              emea:
                 jfrog: "http://172.31.27.120:9083"
                 jfrog_api_token: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
             nodeset: emea
@@ -58,7 +58,7 @@
       jobs:
         - runsparkjob:
             host-vars: 
-              node2:
+              nafta:
                 jfrog: "http://172.31.20.175:9083"
                 jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
             nodeset: nafta 
