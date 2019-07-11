@@ -30,7 +30,7 @@
     - shell: |
            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location| grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i BuildRegion | cut -d "=" -f 2 
       register: name
-      failed_when: '"nafta" not in name.stdout'
+      failed_when: '"shared" not in name.stdout'
     - set_fact:
        location="{{name.stdout}}"
 
