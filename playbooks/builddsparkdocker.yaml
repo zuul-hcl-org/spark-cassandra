@@ -5,7 +5,7 @@
     shell: |
           cd /home/ec2-user/work/
           docker build -t {{ jfrog }}/docker-local/cassandra_example:latest .	
-			 
+
   - name : push the docker images 
     shell: |
           docker push {{ jfrog }}/docker-local/cassandra_example:latest 
