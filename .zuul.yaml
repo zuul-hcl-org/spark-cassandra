@@ -18,7 +18,17 @@
       - ^playbooks/.*$
       - ^.zuul.yaml$
       
+- job:
+    name: buildlocation
+    run: playbooks/buildlocation.yaml
+    parent: base 
+    
+      
 - project:
+    checklabel_both:
+      jobs:
+        - buildlocation:
+            nodeset: emea-node 
     sparkbuildjob_shared:
       jobs:
         - runsparkjob:
