@@ -1,5 +1,5 @@
 - nodeset:
-    name: emea_nafta_node
+    name: node1_node2
     nodes:
       - name: node1
         label: ubuntu-bionic
