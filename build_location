@@ -1,7 +1,7 @@
 Appname=“gameoflife”
 Appbinary=“gameoflife.war”
 sharedArtifactorylocation=“nafta/artifactory”
-ROSbagDatalocation=“nafta”
+ROSbagDatalocation=“both”
 ROSBagstoragepath = “/var/data/rosbag.tar”
 InputScenario1Data =“/var/data/emea/input/*.jcsen”
 InputScenario2Data =“/var/data/nafta/input/*.jcsen”
