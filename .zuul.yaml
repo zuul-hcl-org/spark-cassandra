@@ -27,23 +27,33 @@
       - ^.zuul.yaml$
       
 - job:
-    name: buildlocation
-    run: playbooks/build_location.yaml
+    name: checkbuildlocation_both
+    run: playbooks/checkbuildlocation_both.yaml
     parent: base 
+
+- job:
+    name: checkbuildlocation_emea
+    run: playbooks/checkbuildlocation_emea.yaml
+    parent: base 
+ 
+- job:
+    name: checkbuildlocation_nafta
+    run: playbooks/checkbuildlocation_nafta.yaml
+    parent: base  
     
       
 - project:
     checklabel_both:
       jobs:
-        - buildlocation:
+        - checkbuildlocation_both:
             nodeset: emea
     checklabel_emea:
       jobs:
-       - checklabel_emea:
+       - checkbuildlocation_emea:
            nodeset: emea
     checklabel_nafta:
       jobs:
-       - checklabel_nafta:
+       - checkbuildlocation_nafta:
            nodeset: nafta
            
     check_emea:
