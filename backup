@@ -1,0 +1,106 @@
+- nodeset:
+    name: shared
+    nodes:
+      - name: shared
+        label: centos76
+        
+- nodeset:
+    name: emea
+    nodes:
+      - name: emea
+        label: ubuntu-bionic
+        
+- nodeset:
+    name: nafta
+    nodes:
+      - name: nafta
+        label: centos76
+
+- job:
+    name: sparkbuild
+    run: playbooks/sparkbuild.yaml
+    parent: base
+    irrelevant-files:
+      - ^playbooks/.*$
+      - ^.zuul.yaml$
+      
+- job:
+    name: builddsparkdocker
+    run: playbooks/builddsparkdocker.yaml
+    parent: base
+    irrelevant-files:
+      - ^playbooks/.*$
+      - ^.zuul.yaml$
+ 
+- job:
+    name: sparksubmit
+    run: playbooks/sparksubmit.yaml
+    parent: base
+    irrelevant-files:
+      - ^playbooks/.*$
+      - ^.zuul.yaml$
+      
+- job:
+    name: checkdatalocation_both
+    run: playbooks/checkdatalocation_both.yaml
+    parent: base 
+
+- job:
+    name: checkdatalocation_emea
+    run: playbooks/checkdatalocation_emea.yaml
+    parent: base 
+ 
+- job:
+    name: checkbuildlocation_nafta
+    run: playbooks/checkdatalocation_nafta.yaml
+    parent: base    
+      
+- project:
+    checklabel_both:
+      jobs:
+        - checkdatalocation_both:
+            nodeset: emea
+    checklabel_emea:
+      jobs:
+       - checkdatalocation_emea:
+           nodeset: emea
+    checklabel_nafta:
+      jobs:
+       - checkdatalocation_nafta:
+           nodeset: nafta
+           
+    sparkbuildjob_shared:
+      jobs: 
+        - sparkbuild:
+            host-vars:
+              shared:
+                jfrog: "http://172.31.20.175:9083"
+                jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
+            nodeset: shared
+        - builddsparkdocker:
+            host-vars:
+              emea:
+                jfrog: "http://172.31.27.120:9083"
+            nodeset: emea
+        - sparksubmit:
+            host-vars:
+              emea:
+                jfrog: "http://172.31.27.120:9083"
+            nodeset: emea       
+     
+    check_emea:
+      jobs:
+        - runsparkjob:
+            host-vars:
+              emea:
+                jfrog: "http://172.31.27.120:9083"
+                jfrog_api_token: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
+            nodeset: emea
+    check_nafta:
+      jobs:
+        - runsparkjob:
+            host-vars: 
+              nafta:
+                jfrog: "http://172.31.20.175:9083"
+                jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
+            nodeset: nafta 
