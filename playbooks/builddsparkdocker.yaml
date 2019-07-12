@@ -3,12 +3,7 @@
    - shell: |
             echo {{ zuul.change_url }} | cut -d '/' -f 7
      register: pullid
-     
-   - name: "clean the workspace"
-     shell: |
-            rm  ~/spark_work/*
-     register: clean_output 
-      
+           
    - name: Pull the jar file
      get_url:
         url: "{{ jfrog_shared }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
