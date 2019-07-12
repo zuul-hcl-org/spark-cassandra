@@ -4,9 +4,9 @@
             echo {{ zuul.change_url }} | cut -d '/' -f 7
      register: pullid
      
-   - name: "Deleted the workspace dir before build"
+   - name: "clean the workspace"
      shell: |
-            rm -rf ~/spark_work
+            rm  ~/spark_work/*
      register: clean_output 
       
    - name: Pull the jar file
