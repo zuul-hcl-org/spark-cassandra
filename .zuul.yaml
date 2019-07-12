@@ -89,22 +89,34 @@
     check_emea:
       jobs:
         - sparkbuild:
-            
-        - builddsparkdocker:
-             dependencies:
-               - sparkbuild
-        - sparksubmit:
-            dependencies:
-              - sparkbuild
-              - builddsparkdocker
-           nodeset:emea
-           host-vars:
+            host-vars:
               emea:
                 jfrog_docker: "ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083" 
                 jfrog_shared: "http://13.234.232.162:9083"
                 jfrog: "http://172.31.20.175:9083"
-                jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"              
-             
+                jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
+            nodeset: emea    
+        - builddsparkdocker:
+             dependencies:
+               - sparkbuild
+            host-vars:
+              emea:
+                jfrog_docker: "ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083" 
+                jfrog_shared: "http://13.234.232.162:9083"
+                jfrog: "http://172.31.20.175:9083"
+                jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
+            nodeset: emea   
+        - sparksubmit:
+            dependencies:
+              - sparkbuild
+              - builddsparkdocker
+            host-vars:
+              emea:
+                jfrog_docker: "ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083" 
+                jfrog_shared: "http://13.234.232.162:9083"
+                jfrog: "http://172.31.20.175:9083"
+                jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
+            nodeset: emea              
     check_nafta:
       jobs:
         - runsparkjob:
