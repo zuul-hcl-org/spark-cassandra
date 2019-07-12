@@ -82,7 +82,7 @@
               emea:
                 jfrog: "http://172.31.27.120:9083"
             nodeset: emea
-        - sparksubmit
+        - sparksubmit"
             host-vars:
               emea:
                 jfrog: "http://172.31.27.120:9083"
