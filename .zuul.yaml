@@ -73,7 +73,7 @@
               - checkdatalocation_emea
             host-vars:
               emea:
-                jfrog: "http://13.234.232.162:9083"
+                jfrog_shared: "http://13.234.232.162:9083"
             nodeset: emea
         - sparksubmit:
             dependencies:
