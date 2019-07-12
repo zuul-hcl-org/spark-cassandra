@@ -4,23 +4,28 @@
             echo {{ zuul.change_url }} | cut -d '/' -f 7
      register: pullid
      
+   - name: "Deleted the workspace dir before build"
+     shell: |
+            rm -rf ~/spark_work
+     register: clean_output 
+      
    - name: Pull the jar file
      get_url:
         url: "{{ jfrog_shared }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
-        dest: /home/ec2-user/work/
+        dest: /home/ec2-user/spark_work/
      
 
    - name: build the docker file
      shell: |
-            cd /home/ec2-user/work/
-            echo "FROM {{ jfrog }}/docker-local/spark:v2.4.3" > /home/ec2-user/work/Dockerfile
-            echo "COPY writeRead-assembly-0.1.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/work/Dockerfile
+            cd /home/ec2-user/spark_work/
+            echo "FROM {{ jfrog_docker }}/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile
+            echo "COPY writeRead-assembly-0.1.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile
      
      
    - name: build the docker image 
      shell: |
-           cd /home/ec2-user/work/
-           docker build -t {{ jfrog }}/docker-local/cassandra_example:latest .	
+           cd /home/ec2-user/spark_work/
+           docker build -t {{ jfrog_docker }}/docker-local/cassandra_example:latest .	
      register: docker_build      
 
    - name: push the docker images 
