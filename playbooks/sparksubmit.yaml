@@ -1,6 +1,6 @@
 - hosts: all
   tasks:
-  - name: " run the spark submit" 
+    - name: " run the spark submit" 
       shell: |
             ~/spark.sh
-    register: spark_submit_output
+      register: spark_submit_output
