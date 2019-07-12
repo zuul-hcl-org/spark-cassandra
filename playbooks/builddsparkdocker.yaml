@@ -14,7 +14,7 @@
      shell: |
             cd /home/ec2-user/spark_work/
             echo "FROM {{ jfrog_docker }}/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile
-            echo "COPY writeRead-assembly-0.1.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile
+            echo "COPY writeRead-assembly-{{ pullid.stdout }}.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile
      
      
    - name: build the docker image 
