@@ -1,5 +1,5 @@
 - hosts: all
-  gather_hosts: false
+  gather_facts: false
   tasks:
     - shell: |
             echo {{ zuul.change_url }} | cut -d '/' -f 7
