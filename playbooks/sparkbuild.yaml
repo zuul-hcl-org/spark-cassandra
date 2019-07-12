@@ -32,7 +32,7 @@
 
     - name: Push artifacts to jfrog repository
       uri:
-        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pull_id.stdout }}.jar"
+        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
         #when: zuul_location in emea
         validate_certs: no
         method: PUT
@@ -45,7 +45,7 @@
 
     - name: Pull the jar file
       get_url:
-        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pull_id.stdout }}.jar"
+        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
         dest: /home/ec2-user/work/
       when: build_status is succeeded
 
