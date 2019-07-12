@@ -17,13 +17,13 @@
             echo "COPY writeRead-assembly-0.1.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/work/Dockerfile
      
      
-  - name: build the docker image 
-    shell: |
-          cd /home/ec2-user/work/
-          docker build -t {{ jfrog }}/docker-local/cassandra_example:latest .	
-    register: docker_build      
+   - name: build the docker image 
+     shell: |
+           cd /home/ec2-user/work/
+           docker build -t {{ jfrog }}/docker-local/cassandra_example:latest .	
+     register: docker_build      
 
-  - name: push the docker images 
-    shell: |
-          docker push {{ jfrog }}/docker-local/cassandra_example:latest 
-    when: docker_build is succeeded
+   - name: push the docker images 
+     shell: |
+           docker push {{ jfrog }}/docker-local/cassandra_example:latest 
+     when: docker_build is succeeded
