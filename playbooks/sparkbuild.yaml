@@ -42,15 +42,3 @@
         status_code: 201
         remote_src: yes
       when: build_status is succeeded
-
-    - name: Pull the jar file
-      get_url:
-        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
-        dest: /home/ec2-user/work/
-      when: build_status is succeeded
-
-    - name: build the docker file
-      shell: |
-            echo "FROM {{ jfrog }}/docker-local/spark:v2.4.3" > /home/ec2-user/work/Dockerfile
-            echo "COPY writeRead-assembly-0.1.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/work/Dockerfile
-      when: build_status is succeeded
