@@ -9,23 +9,18 @@
 
     - name: "Deleted the workspace dir before build"
       shell: |
-            rm -rf ~/work
-      register: clean_output
-
-    - name: "Deleted the workspace dir before build"
-      shell: |
-            rm -rf ~/work
+            rm -rf ~/spark_work
       register: spark_output
 
     - name: Clone git repo
       git:
         repo: https://github.com/zuul-hcl-org/spark-cassandra.git
-        dest: ~/work/
+        dest: ~/spark_work/
       when: spark_output is succeeded
 
     - name: Build sample project and junit reports
       shell: |
-            cd ~/work/java/sbt/oss
+            cd ~/spark_work/java/sbt/oss
             sbt clean assembly
 
       register: build_status
@@ -38,7 +33,7 @@
         method: PUT
         headers:
           X-JFrog-Art-Api: "{{ jfrog_api_token }}"
-        src: ~/work/java/sbt/oss/target/writeRead-assembly-0.1.jar
+        src: ~/spark_work/java/sbt/oss/target/writeRead-assembly-0.1.jar
         status_code: 201
         remote_src: yes
       when: build_status is succeeded
