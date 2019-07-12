@@ -13,7 +13,7 @@
              --conf spark.driver.memory=500m  \
              --conf spark.kubernetes.executor.request.cores=0.5 \
              --conf spark.kubernetes.driver.request.cores=0.5 \
-             --conf spark.kubernetes.container.image={{ jfrog_docker }}/docker-local/cassandra_example:v1.4 \
+             --conf spark.kubernetes.container.image={{ jfrog_docker }}/docker-local/cassandra_example:latest \
              --conf spark.kubernetes.namespace=spark \
              --conf spark.driver.host=local[1] \
              --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
