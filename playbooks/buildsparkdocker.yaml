@@ -76,9 +76,10 @@
     - name: build the docker file
       shell: |
             cd /home/ec2-user/spark_work/
+            cp -r {{ InputScenarioData }}/* .
             echo "FROM {{ jfrog_docker }}:9083/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
             echo "COPY writeRead-assembly-{{ pullid.stdout }}.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
-            ADD {{ InputScenarioData }}/*.* /opt/spark
+            echo "ADD input/*.* /opt/spark/" >> /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
      
      
     - name: build the docker image 
