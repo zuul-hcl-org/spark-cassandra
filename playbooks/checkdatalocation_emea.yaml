@@ -5,7 +5,7 @@
         msg: "In Check label emea and nafta job"
     - name: getting the pull id of pull request
       debug:
-       msg: "{{ zuul.change_url }}"
+       msg: "{{ inventory_hostname }}"
     - shell: |
          echo {{ zuul.change_url }} | cut -d '/' -f 7
       register: pullid
