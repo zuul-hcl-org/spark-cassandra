@@ -2,6 +2,8 @@
   tasks:
     - debug:
         msg: "{{ inventory_hostname }}"
+    - set_fact:
+         hostname: "{{ inventory_hostname }}"
     - shell: |
             echo {{ zuul.change_url }} | cut -d '/' -f 7
       register: pullid
@@ -40,7 +42,7 @@
           register: jfrog_docker
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
-      when: "'emea' in inventory_hostname "
+      when: "'emea' in hostname "
       
       block:
         - shell: |
@@ -59,7 +61,7 @@
           register: jfrog_docker
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
-      when: "'nafta' in inventory_hostname "
+      when: "'nafta' in hostname "
       
     - shell: |
             echo {{ zuul.change_url }} | cut -d '/' -f 7
