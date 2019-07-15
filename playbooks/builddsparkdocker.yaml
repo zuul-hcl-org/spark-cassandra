@@ -13,17 +13,17 @@
    - name: build the docker file
      shell: |
             cd /home/ec2-user/spark_work/
-            echo "FROM {{ jfrog_docker }}/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile
-            echo "COPY writeRead-assembly-{{ pullid.stdout }}.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile
+            echo "FROM {{ jfrog_docker }}/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
+            echo "COPY writeRead-assembly-{{ pullid.stdout }}.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
      
      
    - name: build the docker image 
      shell: |
            cd /home/ec2-user/spark_work/
-           docker build -t {{ jfrog_docker }}/docker-local/cassandra_example:latest .	
+           docker build -t {{ jfrog_docker }}/docker-local/cassandra_example:v{{ pullid.stdout }} -f Dockerfile_{{ pullid.stdout }} .	
      register: docker_build      
 
    - name: push the docker images 
      shell: |
-           docker push {{ jfrog_docker }}/docker-local/cassandra_example:latest 
+           docker push {{ jfrog_docker }}/docker-local/cassandra_example:v{{ pullid.stdout }}
      when: docker_build is succeeded
