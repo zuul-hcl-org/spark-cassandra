@@ -1,7 +1,7 @@
 Appname=“gameoflife”
 Appbinary=“gameoflife.war”
 sharedArtifactorylocation=“nafta/artifactory”
-ROSbagDatalocation="nafta"
+ROSbagDatalocation="emea"
 BuildRegion="shared" ## shared build node is nafta 
 ROSBagstargetpath = “/var/data/rosbag.tar”
 InputScenario1Data =/home/ec2-user/emea/input/
