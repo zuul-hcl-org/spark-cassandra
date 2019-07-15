@@ -42,7 +42,7 @@
           register: jfrog_docker
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
-      when: hostname == "emea"
+      when: "'nafta' not in hostname "
       
       block:
         - shell: |
