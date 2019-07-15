@@ -42,7 +42,7 @@
           register: jfrog_docker
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
-      when: "'emea' in hostname "
+      when: hostname == "emea"
       
       block:
         - shell: |
