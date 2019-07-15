@@ -35,8 +35,8 @@
         - shell: |
                 curl -s https://api.github.com/repos/{{ zuul.project.name }}/pulls/{{ pull_id }}| jq .head.ref
           register: branch
-           args:
-             warn: false
+          args:
+            warn: false
         - set_fact:
             branch_name="{{branch.stdout}}"
         - debug:
