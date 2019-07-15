@@ -2,28 +2,28 @@
   tasks:
     - debug:
         msg: "{{ inventory_hostname }}"
+    - shell: |
+            echo {{ zuul.change_url }} | cut -d '/' -f 7
+      register: pullid
+    - name: getting the project name of pull request
+      debug:
+        msg: "{{ zuul.project.name }}"
+    - name: display pull id
+      debug:
+        msg: "{{ pullid }}"
+    - set_fact:
+        pull_id="{{pullid.stdout}}"
+    - shell: |
+            curl -s https://api.github.com/repos/{{ zuul.project.name }}/pulls/{{ pull_id }}| jq .head.ref
+      register: branch
+      args:
+        warn: false
+    - set_fact:
+        branch_name="{{branch.stdout}}"
+    - debug:
+        msg: "{{ branch_name }}"        
     - name: "block"
       block:
-        - shell: |
-                 echo {{ zuul.change_url }} | cut -d '/' -f 7
-          register: pullid
-        - name: getting the project name of pull request
-          debug:
-            msg: "{{ zuul.project.name }}"
-        - name: display pull id
-          debug:
-            msg: "{{ pullid }}"
-        - set_fact:
-            pull_id="{{pullid.stdout}}"
-        - shell: |
-                curl -s https://api.github.com/repos/{{ zuul.project.name }}/pulls/{{ pull_id }}| jq .head.ref
-          register: branch
-          args:
-            warn: false
-        - set_fact:
-            branch_name="{{branch.stdout}}"
-        - debug:
-            msg: "{{ branch_name }}"
         - shell: |
                 curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
           register: InputScenario1Data
@@ -43,15 +43,6 @@
       when: "'emea' in inventory_hostname "
       
       block:
-        - shell: |
-                curl -s https://api.github.com/repos/{{ zuul.project.name }}/pulls/{{ pull_id }}| jq .head.ref
-          register: branch
-          args:
-            warn: false
-        - set_fact:
-            branch_name="{{branch.stdout}}"
-        - debug:
-            msg: "{{ branch_name }}"
         - shell: |
                 curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
           register: InputScenarioData
