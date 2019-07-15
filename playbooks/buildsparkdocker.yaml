@@ -5,6 +5,15 @@
     - name: "block"
       block:
         - shell: |
+                curl -s https://api.github.com/repos/{{ zuul.project.name }}/pulls/{{ pull_id }}| jq .head.ref
+           register: branch
+           args:
+             warn: false
+        - set_fact:
+          branch_name="{{branch.stdout}}"
+        - debug:
+            msg: "{{ branch_name }}"
+        - shell: |
             curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
           register: InputScenarioData
         - set_fact:
