@@ -59,15 +59,15 @@
     checklabel_both:
       jobs:
        - checkdatalocation_both:
-           nodeset: emea-node
+           nodeset: emea
     checklabel_nafta_datalocation:
       jobs:
        - checkbuildlocation_nafta:
-           nodeset: nafta-node      
+           nodeset: nafta      
     checklabel_emea_datalocation:
       jobs:
        - checkdatalocation_emea:
-           nodeset: nafta-node    
+           nodeset: nafta  
     check_emea:
       jobs:
         - sparkbuild:
