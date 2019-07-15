@@ -25,12 +25,12 @@
         - debug:
             msg: "{{ branch_name }}"
         - shell: |
-            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
+                curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
           register: InputScenario1Data
         - set_fact:
             InputScenarioData: "{{ InputScenario1Data.stdout }}"
         - shell: |
-            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
+                curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
           register: jfrog_artifactlocation_emea
         - set_fact:
             jfrog_artifactlocation: "{{ jfrog_artifactlocation_emea.stdout }}"
@@ -40,7 +40,7 @@
           register: jfrog_docker
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
-      when: inventory_hostname == "emea"
+      when: "'emea' in inventory_hostname
       
       block:
         - shell: |
@@ -53,12 +53,12 @@
         - debug:
             msg: "{{ branch_name }}"
         - shell: |
-            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
+                curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
           register: InputScenarioData
         - set_fact:
             InputScenarioData: "{{ InputScenarioData.stdout }}"
         - shell: |
-            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
+                 curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
           register: jfrog_artifactlocation_nafta
         - set_fact:
             jfrog_artifactlocation: "{{ jfrog_artifactlocation_nafta.stdout }}"
@@ -68,7 +68,7 @@
           register: jfrog_docker
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
-      when: inventory_hostname == "nafta"
+      when: "'nafta' in inventory_hostname
       
     - shell: |
             echo {{ zuul.change_url }} | cut -d '/' -f 7
