@@ -1,5 +1,9 @@
 - hosts: all
   tasks:
+    - shell: |
+            echo {{ zuul.change_url }} | cut -d '/' -f 7
+      register: pullid
+      
     - name: " run the spark submit"
       shell: |
              /home/ec2-user/spark-2.4.3-bin-hadoop2.7/bin//spark-submit \
@@ -13,7 +17,7 @@
              --conf spark.driver.memory=500m  \
              --conf spark.kubernetes.executor.request.cores=0.5 \
              --conf spark.kubernetes.driver.request.cores=0.5 \
-             --conf spark.kubernetes.container.image={{ jfrog_docker }}/docker-local/cassandra_example:latest \
+             --conf spark.kubernetes.container.image={{ jfrog_docker }}/docker-local/cassandra_example:v{{ pullid.stdout }} \
              --conf spark.kubernetes.namespace=spark \
              --conf spark.driver.host=local[1] \
              --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
