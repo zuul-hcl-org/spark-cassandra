@@ -3,9 +3,9 @@
     - name: pull request dependent job
       debug:
         msg: "In Check label emea and nafta job"
-    - name: getting the pull id of pull request
+    - name: get the hostname
       debug:
-       msg: "{{ zuul.change_url }}"
+       msg: "{{ inventory_hostname }}"
     - shell: |
          echo {{ zuul.change_url }} | cut -d '/' -f 7
       register: pullid
