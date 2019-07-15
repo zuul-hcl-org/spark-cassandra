@@ -1,0 +1,52 @@
+- hosts: all
+  tasks:
+    - debug:
+        msg: "{{ inventory_hostname }}"
+    - name: "block"
+      block:
+        - shell: |
+            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
+          register: InputScenarioData
+        - set_fact:
+            InputScenarioData: "{{ InputScenarioData.stdout }}"
+        - shell: |
+            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
+          register: jfrog_artifactlocation
+        - set_fact:
+            jfrog_artifactlocation: "{{ jfrog_artifactlocation .stdout }}"
+        - name: "Check the docker url"
+          shell: |
+                echo $jfrog_artifactlocation .stdout  | awk -F[/:] '{print $4}
+          register: jfrog_docker
+        - set_fact:
+            jfrog_docker: "{{ jfrog_docker.stdout }}":9083
+      when: inventory_hostname == "emea"
+      
+    - shell: |
+            echo {{ zuul.change_url }} | cut -d '/' -f 7
+      register: pullid
+           
+    - name: Pull the jar file
+      get_url:
+        url: "{{ jfrog_artifactlocation }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
+        dest: /home/ec2-user/spark_work/
+     
+
+    - name: build the docker file
+      shell: |
+            cd /home/ec2-user/spark_work/
+            echo "FROM {{ jfrog_docker }}/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
+            echo "COPY writeRead-assembly-{{ pullid.stdout }}.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
+            ADD {{ InputScenarioData }}/*.* /opt/spark
+     
+     
+    - name: build the docker image 
+      shell: |
+           cd /home/ec2-user/spark_work/
+           docker build -t {{ jfrog_docker }}/docker-local/cassandra_example:v{{ pullid.stdout }} -f Dockerfile_{{ pullid.stdout }} .	
+      register: docker_build      
+
+    - name: push the docker images 
+      shell: |
+           docker push {{ jfrog_docker }}/docker-local/cassandra_example:v{{ pullid.stdout }}
+      when: docker_build is succeeded
