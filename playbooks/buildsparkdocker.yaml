@@ -5,6 +5,17 @@
     - name: "block"
       block:
         - shell: |
+                 echo {{ zuul.change_url }} | cut -d '/' -f 7
+          register: pullid
+        - name: getting the project name of pull request
+          debug:
+            msg: "{{ zuul.project.name }}"
+        - name: display pull id
+          debug:
+            msg: "{{ pullid }}"
+        - set_fact:
+            pull_id="{{pullid.stdout}}"
+        - shell: |
                 curl -s https://api.github.com/repos/{{ zuul.project.name }}/pulls/{{ pull_id }}| jq .head.ref
           register: branch
           args:
