@@ -43,8 +43,9 @@
         - set_fact:
             jfrog_docker: "{{ jfrog_docker.stdout }}"
       when: "'emea' in hostname "
-      
-    - block:
+    
+    - name: "Block 2"
+      block:
         - shell: |
                 curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario2Data  | cut -d "=" -f 2
           register: InputScenarioData
