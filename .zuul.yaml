@@ -136,6 +136,12 @@
         - checkdatalocation_emea:
             dependencies:
               - sparkbuild
+        - checkdatalocation_both:
+            dependencies:
+              - sparkbuild
+        - checkdatalocation_both:
+            dependencies:
+              - sparkbuild
         - builddsparkdocker:
             dependencies:
               - sparkbuild
