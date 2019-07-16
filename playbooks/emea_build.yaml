@@ -6,18 +6,18 @@
   shell: |
         curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
   register: InputScenario1Data
-  set_fact:
+- set_fact:
     InputScenarioData: "{{ InputScenario1Data.stdout }}"
-  shell: |
+- shell: |
         curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
   register: jfrog_artifactlocation_emea
-  set_fact:
+- set_fact:
     jfrog_artifactlocation: "{{ jfrog_artifactlocation_emea.stdout }}"
   name: "Check the docker url"
-  shell: |
+- shell: |
         echo {{ jfrog_artifactlocation }}  | awk -F[/:] '{print $4}'
   register: jfrog_docker
-  set_fact:
+- set_fact:
     jfrog_docker: "{{ jfrog_docker.stdout }}"
 - name: Pull the jar file
      get_url:
