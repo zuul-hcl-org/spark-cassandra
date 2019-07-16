@@ -1,0 +1,38 @@
+    - name: "execute steps for emea "
+      shell: |
+            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
+      register: InputScenario1Data
+      set_fact:
+        InputScenarioData: "{{ InputScenario1Data.stdout }}"
+      shell: |
+            curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
+      register: jfrog_artifactlocation_emea
+      set_fact:
+        jfrog_artifactlocation: "{{ jfrog_artifactlocation_emea.stdout }}"
+      name: "Check the docker url"
+      shell: |
+            echo {{ jfrog_artifactlocation }}  | awk -F[/:] '{print $4}'
+      register: jfrog_docker
+      set_fact:
+        jfrog_docker: "{{ jfrog_docker.stdout }}"
+ - name: Pull the jar file
+      get_url:
+        url: "{{ jfrog_artifactlocation }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
+        dest: /home/ec2-user/spark_work/
+     
+
+ - name: build the docker file
+   shell: |
+         cd /home/ec2-user/spark_work/
+         cp -r {{ InputScenarioData }}/* .
+         echo "FROM {{ jfrog_docker }}:9083/docker-local/spark:v2.4.3" > /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
+         echo "COPY writeRead-assembly-{{ pullid.stdout }}.jar   //opt/spark/writeRead-assembly-0.1.jar" >> /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
+         echo "ADD input/*.* /opt/spark/" >> /home/ec2-user/spark_work/Dockerfile_{{pullid.stdout}}
+     
+     
+ - name: build the docker image 
+   shell: |
+        cd /home/ec2-user/spark_work/
+        docker build -t {{ jfrog_docker }}:9083/docker-local/cassandra_example:v{{ pullid.stdout }} -f Dockerfile_{{ pullid.stdout }} .	
+   register: docker_build             
+        
