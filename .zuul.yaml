@@ -27,7 +27,7 @@
 - job:
     name: builddsparkdocker
     run: playbooks/buildsparkdocker.yaml
-    parent: base
+    parent: sparkbuild
     irrelevant-files:
       - ^playbooks/.*$
       - ^.zuul.yaml$
@@ -35,7 +35,7 @@
 - job:
     name: sparksubmit
     run: playbooks/sparksubmit.yaml
-    parent: base
+    parent: builddsparkdocker
     irrelevant-files:
       - ^playbooks/.*$
       - ^.zuul.yaml$
