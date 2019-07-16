@@ -32,7 +32,4 @@
     - name: "Inlcude nafta"
       include: nafta_build.yaml
       when: "'nafta' in hostname "
-    - name: "zuul return task"
-      zuul_return:
-        data:
-          jfrog_docker: " {{ jfrog_docker }} "  
+ 
