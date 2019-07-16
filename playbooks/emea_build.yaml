@@ -20,9 +20,9 @@
 - set_fact:
     jfrog_docker: "{{ jfrog_docker.stdout }}"
 - name: Pull the jar file
-     get_url:
-       url: "{{ jfrog_artifactlocation }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
-       dest: /home/ec2-user/spark_work/
+  get_url:
+    url: "{{ jfrog_artifactlocation }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
+    dest: /home/ec2-user/spark_work/
      
 
 - name: build the docker file
