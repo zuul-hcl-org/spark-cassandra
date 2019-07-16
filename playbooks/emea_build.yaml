@@ -4,12 +4,12 @@
   
 - name: "execute steps for emea "
   shell: |
-        curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
+        curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/check_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario1Data  | cut -d "=" -f 2
   register: InputScenario1Data_output
 - set_fact:
     InputScenario1Data: "{{ InputScenario1Data_output.stdout }}"
 - shell: |
-        curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
+        curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/check_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i Emea_artifactlocation  | cut -d "=" -f 2
   register: jfrog_artifactlocation_emea_output
 - set_fact:
     jfrog_artifactlocation_emea: "{{ jfrog_artifactlocation_emea_output.stdout }}"
