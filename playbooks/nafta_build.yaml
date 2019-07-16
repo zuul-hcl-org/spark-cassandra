@@ -1,3 +1,7 @@
+- shell: |
+        echo {{ zuul.change_url }} | cut -d '/' -f 7
+  register: pullid
+  
  - name: "execute steps for emea "
       shell: |
             curl -s curl https://github.com/{{ zuul.project.name }}/blob/{{ branch_name }}/build_location | grep 'js-file-line">'   | sed s/\<.*le-line\"\>//g | sed s/\<.*td\>//g | sed 's/ //g'|grep -i InputScenario2Data  | cut -d "=" -f 2
