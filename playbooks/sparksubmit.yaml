@@ -8,7 +8,7 @@
       register: jfrog_artifactlocation_emea
     - set_fact:
         jfrog_artifactlocation: "{{ jfrog_artifactlocation_emea.stdout }}"
-       name: "Check the docker url"
+      
     - shell: |
               echo {{ jfrog_artifactlocation }}  | awk -F[/:] '{print $4}'
       register: jfrog_docker
