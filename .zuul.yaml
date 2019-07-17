@@ -129,7 +129,7 @@
               - builddsparkdocker
             host-vars:
               nafta:
-                jfrog_docker: "13.235.19.10:9083" 
+                jfrog_docker: "52.66.201.12:9083" 
                 jfrog: "http://52.66.201.12:9083"
                 jfrog_api_token: "AKCp5dKPSD6DjaJRUb6xeXtxLhWUdgnQ5gUDCp9XgFU3ag6wDutAmgD4cMNts9bjmbdWwejoC"
             nodeset: nafta              
