@@ -18,7 +18,7 @@
              --conf spark.kubernetes.executor.request.cores=0.5 \
              --conf spark.kubernetes.driver.request.cores=0.5 \
              --conf spark.kubernetes.container.image={{ jfrog_docker }}/docker-local/cassandra_example:v{{ pullid.stdout }} \
-             --conf spark.kubernetes.namespace=spark \
+             --conf spark.kubernetes.namespace=sparkdemo \
              --conf spark.driver.host=local[1] \
              --conf spark.kubernetes.authenticate.driver.serviceAccountName=spark \
              --conf spark.jars.packages=datastax:spark-cassandra-connector:2.4.0-s_2.11 \
@@ -28,3 +28,4 @@
       
       ##https://54.71.211.15:9443/k8s/clusters/c-7npzk  -- old cluster for reference. 
       ##dockersecret [img pull secret]
+      ##have updated namespace from spark to sparkdemo (aws oregon region)
