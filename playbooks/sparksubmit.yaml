@@ -7,7 +7,7 @@
     - name: " run the spark submit"
       shell: |
              /home/ec2-user/spark-2.4.3-bin-hadoop2.7/bin//spark-submit \
-             --master k8s://https://ec2-54-71-211-15.us-west-2.compute.amazonaws.com:9443/k8s/clusters/c-9hdqp \              
+             --master k8s://https://54.71.211.15:9443/k8s/clusters/c-vmh8v \              
              --deploy-mode cluster \
              --name spark-readwirte-example \
              --class com.datastax.spark.example.WriteRead \
@@ -27,5 +27,6 @@
       register: spark_submit_output
       
       ##https://54.71.211.15:9443/k8s/clusters/c-7npzk  -- old cluster for reference. 
+      ##https://ec2-54-71-211-15.us-west-2.compute.amazonaws.com:9443/k8s/clusters/c-9hdqp
       ##dockersecret [img pull secret]
       ##have updated namespace from spark to sparkdemo (aws oregon region)
