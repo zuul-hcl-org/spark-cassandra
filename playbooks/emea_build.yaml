@@ -21,8 +21,8 @@
     jfrog_docker_emea: "{{ jfrog_docker.stdout }}"
 - name: Pull the jar file
   get_url:
-    #url: "{{ jfrog_artifactlocation_emea }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
-    url: "{{ jfrog_artifactlocation_emea }}/artifactory/generic-local/writeRead-assembly-144.jar"
+    url: "{{ jfrog_artifactlocation_emea }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
+    #url: "{{ jfrog_artifactlocation_emea }}/artifactory/generic-local/writeRead-assembly-144.jar"
     dest: /home/ec2-user/spark_work/
      
 
