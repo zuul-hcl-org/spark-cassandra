@@ -1,4 +1,4 @@
-test
+
 # Example projects for using DSE Analytics
 
 These are template projects that illustrate how to build Spark Application written in Java or Scala
@@ -10,7 +10,7 @@ build tool.
 
 Compiling Spark applications depends on Apache Spark and optionally on Spark Cassandra Connector
 jars. Projects `dse` and `oss` show two different ways of supplying these dependencies.  Both
-projects are built and executed with similar commands.
+projects are built and executed with similar commands and build docker
 
 ### DSE
 
