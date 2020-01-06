@@ -1,4 +1,4 @@
-test
+testtest
 # Example projects for using DSE Analytics
 
 These are template projects that illustrate how to build Spark Application written in Java or Scala
