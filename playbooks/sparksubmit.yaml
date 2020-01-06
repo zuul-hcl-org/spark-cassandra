@@ -7,7 +7,7 @@
     - name: " run the spark submit"
       shell: |
              /home/ec2-user/spark-2.4.3-bin-hadoop2.7/bin//spark-submit \
-             --master k8s://https://54.71.211.15:9443/k8s/clusters/c-vmh8v \              
+             --master k8s://https://13.235.93.27:7443/k8s/clusters/c-x72hm \              
              --deploy-mode cluster \
              --name spark-readwirte-example \
              --class com.datastax.spark.example.WriteRead \
