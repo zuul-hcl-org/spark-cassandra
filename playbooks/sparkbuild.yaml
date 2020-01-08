@@ -27,12 +27,14 @@
 
     - name: Push artifacts to jfrog repository
       uri:
-        url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
+        url: "http://ec2-13-126-181-144.ap-south-1.compute.amazonaws.com:9083/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
+        #url: "{{ jfrog }}/artifactory/generic-local/writeRead-assembly-{{ pullid.stdout }}.jar"
         #when: zuul_location in emea
         validate_certs: no
         method: PUT
         headers:
-          X-JFrog-Art-Api: "{{ jfrog_api_token }}"
+          X-JFrog-Art-Api: "AKCp5dKPSCchSnYWq9RDxLwpTrEcMJpJR2ikAXMAr8CnHdaHMC9Jdykio1xWqRe68pga4NEpJ"
+          #X-JFrog-Art-Api: "{{ jfrog_api_token }}"
         src: ~/spark_work/java/sbt/oss/target/writeRead-assembly-0.1.jar
         status_code: 201
         remote_src: yes
